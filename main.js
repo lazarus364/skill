@@ -1,3 +1,6 @@
+document.getElementById("home").addEventListener("click", function () {
+  window.location.href = "/index.html";
+});
 document.getElementById("register-btn").addEventListener("click", function () {
     window.location.href = "/html/register.html";
   });

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bracket Combinations Challenge</title>
+  <link rel="stylesheet" href="/css/textarea.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="sidebar">
+      <h2>Bracket Combinations</h2>
+      <p>Have the function <code>BracketCombinations(num)</code> return the number of valid combinations of <strong>num</strong> pairs of parentheses.</p>
+      <p><strong>Example:</strong></p>
+      <pre>
+Input: 3  
+Output: 5
+
+Input: 2  
+Output: 2
+      </pre>
+    </div>
+
+    <div class="editor">
+      <textarea id="code" rows="10">
+// Enter your JavaScript code here
+function BracketCombinations(num) {
+  function factorial(n) {
+    return n <= 1 ? 1 : n * factorial(n - 1);
+  }
+
+  // Catalan number: C(n) = (2n)! / ((n + 1)! * n!)
+  return factorial(2 * num) / (factorial(num + 1) * factorial(num));
+}
+
+console.log(BracketCombinations(3)); // Should output 5
+      </textarea>
+      <input type="number" id="input" placeholder="Enter a number" />
+      <button onclick="runCode()">Run Code</button>
+      <div id="output">Output will appear here</div>
+      <h2>Add a Challenge</h2>
+  <textarea id="challengeInput" rows="6" cols="50" placeholder="Enter challenge title | difficulty | description..."></textarea>
+  <br>
+  <button onclick="submitChallenge()">Submit</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
