@@ -1,18 +1,58 @@
-document.getElementById("home").addEventListener("click", function () {
-    window.location.href = "/index.html";
-  });
+// Sample API response simulation
+const apiData = [
+  {
+    id: 1,
+    title: "FizzBuzz",
+    difficulty: "Easy",
+    description: "Write a program that prints the numbers from 1 to 100. But for multiples of 3, print 'Fizz'..."
+  },
+  {
+    id: 2,
+    title: "Palindrome Checker",
+    difficulty: "Medium",
+    description: "Check whether a given string is a palindrome. Ignore punctuation and spaces."
+  },
+  {
+    id: 3,
+    title: "Sudoku Solver",
+    difficulty: "Hard",
+    description: "Write a function that solves a given Sudoku board using backtracking."
+  }
+];
 
-const list = document.getElementById("challengeList");
-const challenges = JSON.parse(localStorage.getItem("challenges")) || [];
+// Inject challenges to DOM
+const challengeList = document.getElementById("challenge-list");
 
-challenges.forEach((entry, i) => {
-  const [title, difficulty, description] = entry.split("|").map(x => x.trim());
-  const div = document.createElement("div");
-    div.className = "challenge-card";
-    div.innerHTML = `
-      <h3>${title || 'Untitled Challenge'}</h3>
-      <p><strong>Difficulty:</strong> ${difficulty || 'Unknown'}</p>
-      <p>${description || 'No description provided.'}</p>
+function renderChallenges(data) {
+  challengeList.innerHTML = "";
+  data.forEach(challenge => {
+    const card = document.createElement("div");
+    card.className = "challenge-card";
+    card.innerHTML = `
+      <h3>${challenge.title}</h3>
+      <p><strong>Difficulty:</strong> ${challenge.difficulty}</p>
+      <p>${challenge.description}</p>
     `;
-    list.appendChild(div);
-  });  
+    challengeList.appendChild(card);
+  });
+}
+
+// Filter logic
+const checkboxes = document.querySelectorAll(".filters input[type=checkbox]");
+checkboxes.forEach(checkbox => {
+  checkbox.addEventListener("change", () => {
+    const activeFilters = Array.from(checkboxes)
+      .filter(cb => cb.checked)
+      .map(cb => cb.value);
+    
+    if (activeFilters.length === 0) {
+      renderChallenges(apiData);
+    } else {
+      const filtered = apiData.filter(ch => activeFilters.includes(ch.difficulty));
+      renderChallenges(filtered);
+    }
+  });
+});
+
+// Initial load
+renderChallenges(apiData);
